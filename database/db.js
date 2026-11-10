@@ -1,27 +1,21 @@
-// ======================================
-// database/db.js
-// MySQL Database Connection
-// ======================================
 
 const mysql = require("mysql2");
 
-// Database Connection
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Niu-23-5743", // <-- यहाँ अपना MySQL password लिखना
-    database: "student_registration"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306
 });
 
-// Connect Database
 db.connect((err) => {
     if (err) {
-        console.error("❌ MySQL Connection Failed");
-        console.error(err.message);
+        console.error("MySQL Connection Failed:", err.message);
         process.exit(1);
     }
 
-    console.log("✅ MySQL Database Connected Successfully");
+    console.log("MySQL Database Connected Successfully");
 });
 
 module.exports = db;
